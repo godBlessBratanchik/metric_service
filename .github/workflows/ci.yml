@@ -1,0 +1,37 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential cmake libcurl4-openssl-dev libgtest-dev nlohmann-json3-dev
+
+    - name: Build Google Test
+      run: |
+        cd /usr/src/gtest
+        sudo cmake .
+        sudo make
+        sudo cp lib/*.a /usr/lib
+
+    - name: Build project
+      run: |
+        cmake .
+        make
+
+    - name: Run tests
+      run: ./grafana_tests
+
+    - name: Build Docker image
+      run: docker build -t grafana-service:latest .
