@@ -127,7 +127,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="grafana_controller.cpp" />
+    <ClCompile Include="kafka_consumer.cpp" />
     <ClCompile Include="metric_service.cpp" />
+    <ClCompile Include="test_grafana.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="grafana_controller.h" />
+    <ClInclude Include="kafka_consumer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
